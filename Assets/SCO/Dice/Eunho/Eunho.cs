@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Eunho : CombineSkillData
 {
-    public override void OnCombine()
+    public override void OnCombine(Dice dice)
     {
-        base.OnCombine();
+        base.OnCombine(dice);
         foreach(var Stat in DiceManager.Instance.diceGrid)
-        {
-            
             Stat.Dice.diceData.stat.CD += 1;
-        }
     }
 }

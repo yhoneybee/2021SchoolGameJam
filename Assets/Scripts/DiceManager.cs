@@ -45,101 +45,36 @@ public class DiceManager : MonoBehaviour
 
     public void DiceMove(Vector2Int dir)
     {
-        for (int x = 0; x < 5; x++)
+        // x,y x,y x,y x,y x,y
+        // 0,0 1,0 2,0 3,0 4,0
+        // 0,1 1,1 2,1 3,1 4,1
+        // 0,2 1,2 2,2 3,2 4,2
+        // 0,3 1,3 2,3 3,3 4,3
+        // 0,4 1,4 2,4 3,4 4,4
+        if (dir == Vector2Int.left)
         {
             for (int y = 0; y < 5; y++)
             {
-                int ay = Mathf.Abs(y - 4);
-                int ax = Mathf.Abs(x - 4);
-                if (dir == Vector2Int.up)
+                for (int x = 1; x < 5; x++)
                 {
-                    if (ay != 4)
+                    if (diceGrid[x, y].Dice)
                     {
-                        diceGrid[x, ay].Dice.Combine(diceGrid[x, ay - 1].Dice);
-                    }
-                }
-                else if (dir == Vector2Int.down)
-                {
-                    if (y != 4)
-                    {
-                        diceGrid[x, y].Dice.Combine(diceGrid[x, y + 1].Dice);
-                    }
-                }
-                else if (dir == Vector2Int.right)
-                {
-                    if (x != 4)
-                    {
-                        diceGrid[x, y].Dice.Combine(diceGrid[x + 1, y].Dice);
-                    }
-                }
-                else if (dir == Vector2Int.left)
-                {
-                    if (ax != 4)
-                    {
-                        diceGrid[x, ax].Dice.Combine(diceGrid[ax, y].Dice);
+                        if (diceGrid[x - 1, y].Dice)
+                        {
+                            diceGrid[x, y].Dice.Combine(diceGrid[x - 1, y].Dice);
+                        }
+                        else
+                        {
+                            diceGrid[x - 1, y].Dice = diceGrid[x, y].Dice;
+
+                            diceGrid[x, y].Dice.GetComponent<RectTransform>().position = diceGrid[x - 1, y].GetComponent<RectTransform>().position;
+                            diceGrid[x, y].Dice = null;
+                        }
                     }
                 }
             }
         }
     }
-
-    //public void DiceAllMoveRight()
-    //{
-    //    for (int i = 5 - 1; i >= 0; i--)
-    //    {
-    //        if (i != 4)
-    //        {
-    //            diceGrid[i].Dice.Combine(diceGrid[i + 1].Dice);
-    //            diceGrid[i + 5].Dice.Combine(diceGrid[i + 5 + 1].Dice);
-    //            diceGrid[i + 10].Dice.Combine(diceGrid[i + 10 + 1].Dice);
-    //            diceGrid[i + 15].Dice.Combine(diceGrid[i + 15 + 1].Dice);
-    //            diceGrid[i + 20].Dice.Combine(diceGrid[i + 20 + 1].Dice);
-    //        }
-    //    }
-    //}
-    //public void DiceAllMoveLeft()
-    //{
-    //    for (int i = 0; i < 5; i++)
-    //    {
-    //        if (i != 0)
-    //        {
-    //            diceGrid[i].Dice.Combine(diceGrid[i - 1].Dice);
-    //            diceGrid[i + 5].Dice.Combine(diceGrid[i + 5 - 1].Dice);
-    //            diceGrid[i + 10].Dice.Combine(diceGrid[i + 10 - 1].Dice);
-    //            diceGrid[i + 15].Dice.Combine(diceGrid[i + 15 - 1].Dice);
-    //            diceGrid[i + 20].Dice.Combine(diceGrid[i + 20 - 1].Dice);
-    //        }
-    //    }
-    //}
-    //public void DiceAllMoveDown()
-    //{
-    //    for (int i = 25 - 1; i >= 0; i -= 5)
-    //    {
-    //        if (i != 4)
-    //        {
-    //            diceGrid[i - 5].Dice.Combine(diceGrid[i].Dice);
-    //            diceGrid[i - 1 - 5].Dice.Combine(diceGrid[i - 1].Dice);
-    //            diceGrid[i - 2 - 5].Dice.Combine(diceGrid[i - 2].Dice);
-    //            diceGrid[i - 3 - 5].Dice.Combine(diceGrid[i - 3].Dice);
-    //            diceGrid[i - 4 - 5].Dice.Combine(diceGrid[i - 4].Dice);
-    //        }
-    //    }
-    //}
-    //public void DiceAllMoveUp()
-    //{
-    //    for (int i = 0; i < 25; i += 5)
-    //    {
-    //        if (i != 0)
-    //        {
-    //            diceGrid[i].Dice.Combine(diceGrid[i - 5].Dice);
-    //            diceGrid[i + 1].Dice.Combine(diceGrid[i + 1 - 5].Dice);
-    //            diceGrid[i + 2].Dice.Combine(diceGrid[i + 2 - 5].Dice);
-    //            diceGrid[i + 3].Dice.Combine(diceGrid[i + 3 - 5].Dice);
-    //            diceGrid[i + 4].Dice.Combine(diceGrid[i + 4 - 5].Dice);
-    //        }
-    //    }
-    //}
-
 
     public void SpawnDice()
     {
@@ -157,7 +92,7 @@ public class DiceManager : MonoBehaviour
             print($"idx({idx}) = {idx % 5} + {idx / 5}");
 
             diceGrid[idx % 5, idx / 5].Dice = dice;
-            diceGrid[idx % 5, idx / 5].Dice.GetComponent<RectTransform>().position = diceGrid[idx % 5, idx / 5].GetComponent<RectTransform>().position;
+            dice.GetComponent<RectTransform>().position = diceGrid[idx % 5, idx / 5].GetComponent<RectTransform>().position;
         }
     }
 }

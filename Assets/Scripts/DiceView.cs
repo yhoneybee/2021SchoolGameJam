@@ -16,6 +16,10 @@ public class DiceView : MonoBehaviour
                 animator.runtimeAnimatorController = dice.diceData.animatorController;
                 InvokeRepeating(nameof(Attack), 0, 1 / Dice.diceData.stat.AS);
             }
+            else
+            {
+                CancelInvoke(nameof(Attack));
+            }
         }
     }
 
