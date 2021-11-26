@@ -22,3 +22,9 @@ public class DiceData : ScriptableObject
     public RuntimeAnimatorController animatorController; //애니메이터 컨트롤러
     public bool isTargetRand; //무작위 공격 할껀지 안할껀지
 }
+
+
+
+
+
+
