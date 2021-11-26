@@ -16,9 +16,9 @@ public struct ProportionInfo
 [CreateAssetMenu(fileName = "DiceData", menuName = "Datas/DiceData", order = 0)]
 public class DiceData : ScriptableObject
 {
-    public Stat stat;
+    public Stat stat; // 주사위의 스탯
     public ProportionInfo proportionInfo;
-    public CombineSkillData combineSkillData;
-    public RuntimeAnimatorController animatorController;
-    public bool isTargetRand;
+    public CombineSkillData combineSkillData; // 합칠때 스킬 
+    public RuntimeAnimatorController animatorController; //애니메이터 컨트롤러
+    public bool isTargetRand; //무작위 공격 할껀지 안할껀지
 }
