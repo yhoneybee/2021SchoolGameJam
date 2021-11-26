@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a02e87433208e54db2e1120851c8f7f, type: 3}
+  m_Name: Eunho
+  m_EditorClassIdentifier: 
+  stat:
+    MaxHP: 0
+    AD: 5
+    AS: 5
+    CP: 0
+    CD: 0
+    MS: 0
+    hp: 0
+  proportionInfo:
+    lostHp: 0
+    remainHp: 0
+    maxHp: 0
+  combineSkillData: {fileID: 0}
+  animatorController: {fileID: 0}
+  isTargetRand: 0

@@ -7,6 +7,7 @@ public static class ObjPool
 {
     private static List<Enemy> enemies = new List<Enemy>();
     private static List<Enemy> activeEnemies = new List<Enemy>();
+    public static List<Enemy> ActiveEnemies => activeEnemies;
 
     public static Enemy GetFrontEnemy() => activeEnemies.Count > 0 ? (activeEnemies[0].gameObject.activeSelf ? activeEnemies[0] : null) : null;
     public static Enemy GetRandEnemy()

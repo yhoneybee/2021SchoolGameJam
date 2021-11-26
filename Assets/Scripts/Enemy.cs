@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     }
     public Stat stat;
     public Animator animator;
-    public int Pos
+    public int Pos//Property
     {
         get => pos;
         set
