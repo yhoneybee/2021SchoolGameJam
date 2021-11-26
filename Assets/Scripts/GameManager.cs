@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public int killCount;
+    public Vector3 down;
 
     [SerializeField] private int roundCount;
     private int enemyCount;
@@ -58,7 +59,27 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            DiceManager.Instance.DiceAllMoveLeft();
 
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            DiceManager.Instance.DiceAllMoveRight();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            DiceManager.Instance.DiceAllMoveUp();
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            DiceManager.Instance.DiceAllMoveDown();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            down = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            var dir = Input.mousePosition - down;
+            down = Vector2.zero;
+        }
     }
 
     IEnumerator ESpawn()

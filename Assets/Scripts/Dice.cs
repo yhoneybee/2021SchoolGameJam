@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 
@@ -31,8 +32,21 @@ public struct Stat
 
 public class Dice : MonoBehaviour
 {
-    public List<DiceEye> diceEyes = new List<DiceEye>();
+    //public List<DiceEye> diceEyes = new List<DiceEye>();
     public DiceData diceData;
+    public int DiceEyesCount
+    {
+        get { return diceEyesCount; }
+        set
+        {
+            diceEyesCount = value;
+            txtDiceEyesCount.text = $"{diceEyesCount}";
+        }
+    }
+    public int idx;
+    public Text txtDiceEyesCount;
+
+    private int diceEyesCount;
 
     private void Start()
     {
@@ -42,18 +56,23 @@ public class Dice : MonoBehaviour
     // ÇÕÄ¡±â
     public void Combine(Dice combineTo)
     {
-        if (CheckCombine(combineTo))
+        if (combineTo && CheckCombine(combineTo))
         {
             diceData.combineSkillData.OnCombine();
+            combineTo.DiceEyesCount++;
+            DiceManager.Instance.posIndex.Add(idx);
+            Destroy(gameObject);
         }
     }
-    public bool CheckCombine(Dice combineTo) => combineTo.diceEyes.Count == diceEyes.Count;
+    public bool CheckCombine(Dice combineTo) => combineTo.DiceEyesCount == DiceEyesCount;
 
     public void Attack()
     {
         var temp = diceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
+        print("F");
         if (temp && temp.gameObject.activeSelf)
         {
+            print("G");
             float cp = UnityEngine.Random.Range(0.0f, 100.0f);
             float damage = diceData.stat.AD;
             int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);

@@ -13,8 +13,8 @@ public class Enemy : MonoBehaviour
         {
             enemyData = value;
             stat = enemyData.stat;
-            //stat.MaxHP = GameManager.Instance.RoundCount * 2022;
-            //stat.HP = stat.MaxHP;
+            stat.MaxHP *= (GameManager.Instance.RoundCount + 1);
+            stat.HP = stat.MaxHP;
             stat.onDie = OnDie;
             animator.runtimeAnimatorController = enemyData.animatorController;
         }
@@ -53,6 +53,12 @@ public class Enemy : MonoBehaviour
     }
 
     protected void OnDie()
+    {
+        animator.SetBool("isDie", true);
+        Return();
+    }
+
+    public void Return()
     {
         Pos = 0;
         ObjPool.ReturnEnemy(this);
