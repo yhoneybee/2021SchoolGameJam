@@ -15,29 +15,28 @@ public struct Stat
         {
             if (0 < value && value <= MaxHP)
                 hp = value;
-            else if (value == 0)
+            else if (value <= 0)
                 onDie();
         }
     }
     public float MaxHP;
     public float AD;
+    public float AS;
     public float CP;
     public float CD;
     public float MS;
 
-    private float hp;
+    [SerializeField] private float hp;
 }
 
-[RequireComponent(typeof(Animator))]
-public abstract class Dice : MonoBehaviour
+public class Dice : MonoBehaviour
 {
     public List<DiceEye> diceEyes = new List<DiceEye>();
-    public Stat stat;
-    public bool isTargetRand;
+    public DiceData diceData;
 
     private void Start()
     {
-        stat.onDie = () => { };
+        //InvokeRepeating(nameof(Attack), 0, 1 / diceData.stat.AS);
     }
 
     // ÇÕÄ¡±â
@@ -45,21 +44,36 @@ public abstract class Dice : MonoBehaviour
     {
         if (CheckCombine(combineTo))
         {
-            OnCombine();
+            diceData.combineSkillData.OnCombine();
         }
     }
-    protected abstract void OnCombine();
-
     public bool CheckCombine(Dice combineTo) => combineTo.diceEyes.Count == diceEyes.Count;
 
     public void Attack()
     {
-        var temp = isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
-        if (!temp)
+        var temp = diceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
+        if (temp && temp.gameObject.activeSelf)
         {
             float cp = UnityEngine.Random.Range(0.0f, 100.0f);
-            float damage = stat.AD;
-            if (cp > stat.CP) damage *= stat.CD;
+            float damage = diceData.stat.AD;
+            int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
+            int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
+            int max = (int)(temp.stat.MaxHP / 100) * 100;
+
+            losthp = losthp == 0 ? 1 : losthp;
+            remain = remain == 0 ? 1 : remain;
+            max = max == 0 ? 1 : max;
+
+            if (diceData.proportionInfo.lostHp)
+                damage *= losthp;
+            if (diceData.proportionInfo.remainHp)
+                damage *= remain;
+            if (diceData.proportionInfo.maxHp)
+                damage *= max;
+
+            if (diceData.stat.CD > 0 && cp < diceData.stat.CP)
+                damage *= diceData.stat.CD;
+
             temp.stat.HP -= damage;
         }
     }

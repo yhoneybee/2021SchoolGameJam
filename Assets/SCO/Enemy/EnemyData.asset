@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d406717f75df6834a971fec04edf5b92, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
-  Stat:
-    MaxHP: 0
+  stat:
+    MaxHP: 20
     AD: 0
+    AS: 0
     CP: 0
     CD: 0
-  AnimatorController: {fileID: 0}
+    MS: 100
+    hp: 20
+  animatorController: {fileID: 9100000, guid: 53f0334af72a08944969117052114279, type: 2}

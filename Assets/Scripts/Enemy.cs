@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(Animator))]
-public abstract class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public EnemyData EnemyData
     {
@@ -13,6 +13,9 @@ public abstract class Enemy : MonoBehaviour
         {
             enemyData = value;
             stat = enemyData.stat;
+            //stat.MaxHP = GameManager.Instance.RoundCount * 2022;
+            //stat.HP = stat.MaxHP;
+            stat.onDie = OnDie;
             animator.runtimeAnimatorController = enemyData.animatorController;
         }
     }
@@ -25,7 +28,6 @@ public abstract class Enemy : MonoBehaviour
         {
             if (value >= GameManager.Instance.poss.Count)
             {
-                pos = 0;
                 OnDie();
             }
             else
@@ -38,7 +40,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void Start()
     {
-        stat.onDie = OnDie;
+
     }
 
     private void Update()
@@ -50,8 +52,10 @@ public abstract class Enemy : MonoBehaviour
         rtrn.anchoredPosition = Vector3.MoveTowards(rtrn.anchoredPosition, targetPos, Time.deltaTime * stat.MS);
     }
 
-    protected virtual void OnDie()
+    protected void OnDie()
     {
+        Pos = 0;
         ObjPool.ReturnEnemy(this);
+        GameManager.Instance.killCount++;
     }
 }
