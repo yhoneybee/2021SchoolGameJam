@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "Datas/Skill", order = 0)]
 public class CombineSkillData : ScriptableObject
 {
-    public virtual void OnCombine()
+    public virtual void OnCombine(Dice dice)
     {
-
     }
 }

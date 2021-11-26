@@ -1300,7 +1300,6 @@ GameObject:
   - component: {fileID: 828249703}
   - component: {fileID: 828249705}
   - component: {fileID: 828249704}
-  - component: {fileID: 828249707}
   - component: {fileID: 828249708}
   - component: {fileID: 828249706}
   m_Layer: 5
@@ -1368,18 +1367,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 828249702}
   m_CullTransparentMesh: 1
 --- !u!114 &828249706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828249702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a08241e8abc9d488f0e2b711812d42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &828249707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2189,35 +2176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbe386d9eec7db46b2f62c20dc93728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceGrid:
-  - {fileID: 828249707}
-  - {fileID: 1018576667}
-  - {fileID: 1512104259}
-  - {fileID: 361116447}
-  - {fileID: 1483359776}
-  - {fileID: 912060798}
-  - {fileID: 1815088395}
-  - {fileID: 2013895757}
-  - {fileID: 901370899}
-  - {fileID: 1704612892}
-  - {fileID: 995158338}
-  - {fileID: 1275649372}
-  - {fileID: 1417950905}
-  - {fileID: 598183443}
-  - {fileID: 539498323}
-  - {fileID: 1522793906}
-  - {fileID: 1141108644}
-  - {fileID: 1514880276}
-  - {fileID: 617842798}
-  - {fileID: 154623016}
-  - {fileID: 659740382}
-  - {fileID: 1602622312}
-  - {fileID: 1588973528}
-  - {fileID: 820028107}
-  - {fileID: 1343201541}
   deck:
   - {fileID: 11400000, guid: f85a0f9bb286ac64384a7c715b3f5260, type: 2}
-  cellCount: {x: 0, y: 0}
+  posIndex: 
+  rtrnGridParent: {fileID: 197336062}
 --- !u!1 &1343201537
 GameObject:
   m_ObjectHideFlags: 0
