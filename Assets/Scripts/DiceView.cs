@@ -18,7 +18,6 @@ public class DiceView : MonoBehaviour
 
     private Dice dice;
     private Animator animator;
-
     private void Start()
     {
         animator = GetComponent<Animator>();
