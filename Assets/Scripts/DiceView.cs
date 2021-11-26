@@ -11,8 +11,11 @@ public class DiceView : MonoBehaviour
         set
         {
             dice = value;
-            animator.runtimeAnimatorController = dice.diceData.animatorController;
-            InvokeRepeating(nameof(Attack), 0, 1 / Dice.diceData.stat.AS);
+            if (dice)
+            {
+                animator.runtimeAnimatorController = dice.diceData.animatorController;
+                InvokeRepeating(nameof(Attack), 0, 1 / Dice.diceData.stat.AS);
+            }
         }
     }
 
