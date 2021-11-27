@@ -41,15 +41,16 @@ public class Dice : MonoBehaviour
             if (value)
             {
                 if (!diceData) DiceEyesCount = 1;
+                stat = value.stat;
                 animator = GetComponent<Animator>();
                 animator.runtimeAnimatorController = value.animatorController;
-                InvokeRepeating(nameof(Attack), 0, 1 / value.stat.AS);
+                CAttack = StartCoroutine(EAttack());
             }
             else
             {
                 DiceEyesCount = 0;
                 animator = null;
-                CancelInvoke(nameof(Attack));
+                StopCoroutine(CAttack);
             }
             diceData = value;
         }
@@ -82,7 +83,6 @@ public class Dice : MonoBehaviour
                     // 주사위가 있다면 눈금이 같은지 확인
                     if (target.DiceData)
                     {
-                        print("if");
                         // 같다면 합쳐버리기
                         if (target.DiceEyesCount == DiceEyesCount)
                             DiceManager.Instance.Combine(this, target);
@@ -91,7 +91,6 @@ public class Dice : MonoBehaviour
                     // 주사위가 없다면
                     else
                     {
-                        print("else");
                         // 없는 위치인 value위치에 현재 정보를 넘김
                         DiceManager.Instance.diceGrid[value.x, value.y].DiceData = DiceData;
                         DiceManager.Instance.diceGrid[value.x, value.y].DiceEyesCount = DiceEyesCount;
@@ -108,11 +107,14 @@ public class Dice : MonoBehaviour
     public Text txtDiceEyesCount;
     public Action onAttack = () => { };
     public bool isMerge;
+    public Stat stat;
+    public Stat buffStat;
 
     [SerializeField] private int diceEyesCount;
     private Animator animator;
     [SerializeField] private DiceData diceData;
     [SerializeField] private Vector2Int posIndex;
+    private Coroutine CAttack;
 
     private void Start()
     {
@@ -152,5 +154,11 @@ public class Dice : MonoBehaviour
             temp.stat.HP -= damage;
             onAttack();
         }
+    }
+
+    IEnumerator EAttack()
+    {
+        yield return new WaitForSeconds(1 / (stat.AS + buffStat.AS));
+        Attack();
     }
 }
