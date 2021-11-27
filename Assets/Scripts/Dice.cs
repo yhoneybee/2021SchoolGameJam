@@ -107,9 +107,7 @@ public class Dice : MonoBehaviour
     public Text txtDiceEyesCount;
     public Action onAttack = () => { };
     
-    //uint�� +�� ����ϴ� ����
-    private int backhoAttackCount;
-    private int diceEyesCount;
+    
     public bool isMerge;
     public Stat stat;
     public Stat buffStat;
@@ -141,25 +139,23 @@ public class Dice : MonoBehaviour
             int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
             int max = (int)(temp.stat.MaxHP / 100) * 100;
 
-        losthp = losthp == 0 ? 1 : losthp;
-        remain = remain == 0 ? 1 : remain;
-        max = max == 0 ? 1 : max;
+            losthp = losthp == 0 ? 1 : losthp;
+            remain = remain == 0 ? 1 : remain;
+            max = max == 0 ? 1 : max;
 
-        if (diceData.proportionInfo.lostHp)
-            damage *= losthp;
-        if (diceData.proportionInfo.remainHp)
-            damage *= remain;
-        if (diceData.proportionInfo.maxHp)
-            damage *= max;
+            if (diceData.proportionInfo.lostHp)
+                damage *= losthp;
+            if (diceData.proportionInfo.remainHp)
+                damage *= remain;
+            if (diceData.proportionInfo.maxHp)
+                damage *= max;
 
-        if (diceData.stat.CD > 0 && cp < diceData.stat.CP)
-            damage *= diceData.stat.CD;
+            if (diceData.stat.CD > 0 && cp < diceData.stat.CP)
+                damage *= diceData.stat.CD;
 
-        temp.stat.HP -= damage;
-        onAttack();
-
-
-
+            temp.stat.HP -= damage;
+            onAttack();
+        }
     }
 
     IEnumerator EAttack()

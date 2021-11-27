@@ -7,6 +7,7 @@ public class Backho : CombineSkillData
     private float deltaValueAS = 10;
     private float deltaValueAD = 50;
     private bool isFastAS = true;
+    private int backhoAttackCount;
 
     //오버라이드는 물려받았는데 재정의 한것이다.
     public override void OnCombine(Dice dice)
@@ -16,6 +17,20 @@ public class Backho : CombineSkillData
         foreach (var item in DiceManager.Instance.diceGrid) 
         {
             item.DiceData.stat.CP += 5;
+        }
+    }
+    public void OnAttack()
+    {
+        backhoAttackCount++;
+        if (backhoAttackCount == 5)
+        {
+            backhoAttackCount = 0;
+
+            if (diceData.combineSkillData is Backho)
+            {
+                ((Backho)diceData.combineSkillData).ChangeStatWhenAttack5();
+            }
+
         }
     }
     public void ChangeStatWhenAttack5()
