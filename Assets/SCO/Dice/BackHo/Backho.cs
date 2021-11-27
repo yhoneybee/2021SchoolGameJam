@@ -12,5 +12,5 @@ public class Backho : CombineSkillData
             item.Dice.diceData.stat.CP += 5;
         }
     }
-}
     
+}
