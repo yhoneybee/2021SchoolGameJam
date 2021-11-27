@@ -46,7 +46,9 @@ public class Dice : MonoBehaviour
     public Vector2Int idx;
     public Text txtDiceEyesCount;
     public Action onAttack = () => { };
-
+    
+    //uint는 +만 취급하는 절댓값
+    private int backhoAttackCount;
     private int diceEyesCount;
 
     private void Start()
@@ -69,31 +71,51 @@ public class Dice : MonoBehaviour
 
     public void Attack()
     {
+
         var temp = diceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
-        if (temp && temp.gameObject.activeSelf)
+        //적을 정가져오지 못하였을때
+        if (temp == null || !temp.gameObject.activeSelf)
         {
-            float cp = UnityEngine.Random.Range(0.0f, 100.0f);
-            float damage = diceData.stat.AD;
-            int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
-            int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
-            int max = (int)(temp.stat.MaxHP / 100) * 100;
-
-            losthp = losthp == 0 ? 1 : losthp;
-            remain = remain == 0 ? 1 : remain;
-            max = max == 0 ? 1 : max;
-
-            if (diceData.proportionInfo.lostHp)
-                damage *= losthp;
-            if (diceData.proportionInfo.remainHp)
-                damage *= remain;
-            if (diceData.proportionInfo.maxHp)
-                damage *= max;
-
-            if (diceData.stat.CD > 0 && cp < diceData.stat.CP)
-                damage *= diceData.stat.CD;
-
-            temp.stat.HP -= damage;
-            onAttack();
+            //이 함수를 끝낸다.
+            return;
         }
+
+        
+        backhoAttackCount++;
+        if(backhoAttackCount == 5)
+        {
+            backhoAttackCount = 0;
+            
+            if(diceData.combineSkillData is Backho)
+            {
+                ((Backho)diceData.combineSkillData).ChangeStatWhenAttack5();
+            }
+            
+        }
+        float cp = UnityEngine.Random.Range(0.0f, 100.0f);
+        float damage = diceData.stat.AD;
+        int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
+        int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
+        int max = (int)(temp.stat.MaxHP / 100) * 100;
+
+        losthp = losthp == 0 ? 1 : losthp;
+        remain = remain == 0 ? 1 : remain;
+        max = max == 0 ? 1 : max;
+
+        if (diceData.proportionInfo.lostHp)
+            damage *= losthp;
+        if (diceData.proportionInfo.remainHp)
+            damage *= remain;
+        if (diceData.proportionInfo.maxHp)
+            damage *= max;
+
+        if (diceData.stat.CD > 0 && cp < diceData.stat.CP)
+            damage *= diceData.stat.CD;
+
+        temp.stat.HP -= damage;
+        onAttack();
+
+
+
     }
 }

@@ -62,6 +62,6 @@ public class Enemy : MonoBehaviour
     {
         Pos = 0;
         ObjPool.ReturnEnemy(this);
-        GameManager.Instance.killCount++;
+        GameManager.Instance.KillCount++;
     }
 }

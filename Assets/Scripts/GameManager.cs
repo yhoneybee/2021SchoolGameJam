@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public List<RectTransform> poss = new List<RectTransform>();
     public List<EnemyData> enemyDatas = new List<EnemyData>();
+    public ScoreText scoreText;
     public int RoundCount
     {
         get { return roundCount; }
@@ -40,7 +41,18 @@ public class GameManager : MonoBehaviour
                 RoundCount++;
         }
     }
-    public int killCount;
+    private int killCount;
+
+    //KillCount´Â get, KillCount = ´Â set
+    public int KillCount
+    {
+        get { return killCount; }
+        set
+        {
+            killCount = value;
+            Instance.scoreText.ChangeScore();
+        }
+    }
     public Vector3 down;
 
     [SerializeField] private int roundCount;

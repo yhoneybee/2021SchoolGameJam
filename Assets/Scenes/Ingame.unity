@@ -1994,7 +1994,7 @@ MonoBehaviour:
   - {fileID: 505264720}
   enemyDatas:
   - {fileID: 11400000, guid: 1f81ef111f0167145b36ca74784a7b75, type: 2}
-  killCount: 0
+  scoreText: {fileID: 1656418666}
   down: {x: 0, y: 0, z: 0}
   roundCount: 0
 --- !u!1 &1141108640
@@ -3189,7 +3189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 406057674}
-  KillMob: 0
 --- !u!4 &1656418667
 Transform:
   m_ObjectHideFlags: 0
