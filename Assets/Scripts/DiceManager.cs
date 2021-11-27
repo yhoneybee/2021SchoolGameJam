@@ -46,37 +46,36 @@ public class DiceManager : MonoBehaviour
 
     public void DiceMove(Vector2Int dir)
     {
-        if (dir == Vector2Int.left || dir == Vector2Int.up)
+        for (int i = 0; i < 5; i++)
         {
-            for (int x = 0; x < 5; x++)
+            if (dir == Vector2Int.left || dir == Vector2Int.up)
             {
-                for (int y = 0; y < 5; y++)
+                for (int x = 0; x < 5; x++)
                 {
-                    if (diceGrid[x, y].DiceData)
+                    for (int y = 0; y < 5; y++)
                     {
-                        diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
+                        if (diceGrid[x, y].DiceData)
+                        {
+                            diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
+                        }
                     }
                 }
             }
-        }
-        else if (dir == Vector2Int.right || dir == Vector2Int.down)
-        {
-            for (int x = 5 - 1; x >= 0; x--)
+            else if (dir == Vector2Int.right || dir == Vector2Int.down)
             {
-                for (int y = 5 - 1; y >= 0; y--)
+                for (int x = 5 - 1; x >= 0; x--)
                 {
-                    if (diceGrid[x, y].DiceData)
+                    for (int y = 5 - 1; y >= 0; y--)
                     {
-                        diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
+                        if (diceGrid[x, y].DiceData)
+                        {
+                            diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
+                        }
                     }
                 }
             }
-        }
 
-        //if (dir == Vector2Int.right)
-        //    diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + 1, diceGrid[x, y].PosIndex.y);
-        //if (dir == Vector2Int.down)
-        //    diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x, diceGrid[x, y].PosIndex.y + 1);
+        }
 
         foreach (var item in diceGrid)
         {
@@ -91,9 +90,13 @@ public class DiceManager : MonoBehaviour
 
     public void Combine(Dice from, Dice to)
     {
-        to.DiceEyesCount++;
-        to.DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
-        from.DiceData = null;
+        if (!to.isMerge)
+        {
+            to.DiceEyesCount++;
+            to.DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
+            to.isMerge = true;
+            from.DiceData = null;
+        }
     }
 
     public void SpawnDice()
