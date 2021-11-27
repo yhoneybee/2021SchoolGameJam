@@ -52,32 +52,38 @@ public class DiceManager : MonoBehaviour
         {
             var touch = Input.GetTouch(0);
             delta = touch.deltaPosition;
+            print(delta);
         }
         if (Input.touchCount == 0 && delta != Vector2.zero)
         {
-            if (delta.x > delta.y)
+            float x = Mathf.Abs(delta.x);
+            float y = Mathf.Abs(delta.y);
+            if (x > 2 && y > 2)
             {
-                if (delta.x > 0)
+                if (x > y)
                 {
-                    DiceMove(Vector2Int.right);
+                    if (delta.x > 0)
+                    {
+                        DiceMove(Vector2Int.right);
+                    }
+                    else
+                    {
+                        DiceMove(Vector2Int.left);
+                    }
                 }
                 else
                 {
-                    DiceMove(Vector2Int.left);
+                    if (delta.y > 0)
+                    {
+                        DiceMove(Vector2Int.up);
+                    }
+                    else
+                    {
+                        DiceMove(Vector2Int.down);
+                    }
                 }
+                delta = Vector2.zero;
             }
-            else
-            {
-                if (delta.y > 0)
-                {
-                    DiceMove(Vector2Int.up);
-                }
-                else
-                {
-                    DiceMove(Vector2Int.down);
-                }
-            }
-            delta = Vector2.zero;
         }
 #endif
     }
@@ -123,7 +129,6 @@ public class DiceManager : MonoBehaviour
             }
             else
             {
-                print("DICE");
                 PosIndex.Remove(item.PosIndex.x + item.PosIndex.y * 5);
                 item.isMerge = false;
             }
@@ -152,8 +157,6 @@ public class DiceManager : MonoBehaviour
             var pos = new Vector2Int(idx % 5, idx / 5);
             diceGrid[idx % 5, idx / 5].PosIndex = pos;
             diceGrid[idx % 5, idx / 5].DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
-
-            print($"pos : {diceGrid[idx % 5, idx / 5].PosIndex} / idx({idx}) = {idx % 5} + {idx / 5}");
         }
     }
 }
