@@ -59,18 +59,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            DiceManager.Instance.DiceAllMoveLeft();
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            DiceManager.Instance.DiceAllMoveRight();
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            DiceManager.Instance.DiceAllMoveUp();
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            DiceManager.Instance.DiceAllMoveDown();
-
         if (Input.GetMouseButtonDown(0))
         {
             down = Input.mousePosition;

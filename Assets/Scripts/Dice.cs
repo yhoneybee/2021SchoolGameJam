@@ -43,8 +43,9 @@ public class Dice : MonoBehaviour
             txtDiceEyesCount.text = $"{diceEyesCount}";
         }
     }
-    public int idx;
+    public Vector2Int idx;
     public Text txtDiceEyesCount;
+    public Action onAttack = () => { };
 
     private int diceEyesCount;
 
@@ -58,9 +59,9 @@ public class Dice : MonoBehaviour
     {
         if (combineTo && CheckCombine(combineTo))
         {
-            diceData.combineSkillData.OnCombine();
+            diceData.combineSkillData.OnCombine(this);
             combineTo.DiceEyesCount++;
-            DiceManager.Instance.posIndex.Add(idx);
+            DiceManager.Instance.posIndex.Add(idx.x + idx.y * 5);
             Destroy(gameObject);
         }
     }
@@ -69,10 +70,8 @@ public class Dice : MonoBehaviour
     public void Attack()
     {
         var temp = diceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
-        print("F");
         if (temp && temp.gameObject.activeSelf)
         {
-            print("G");
             float cp = UnityEngine.Random.Range(0.0f, 100.0f);
             float damage = diceData.stat.AD;
             int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
@@ -94,6 +93,7 @@ public class Dice : MonoBehaviour
                 damage *= diceData.stat.CD;
 
             temp.stat.HP -= damage;
+            onAttack();
         }
     }
 }

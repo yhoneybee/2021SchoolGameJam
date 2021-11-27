@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GoldhoSkill", menuName = "Datas/GoldhoSkill", order = 0)]
 public class Goldho : CombineSkillData
 {
-    public override void OnCombine()
+    public override void OnCombine(Dice dice)
     {
-        base.OnCombine();
+        base.OnCombine(dice);
         foreach (var item in DiceManager.Instance.diceGrid)
         {
             item.Dice.diceData.stat.AD += 5;

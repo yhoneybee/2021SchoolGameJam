@@ -6,8 +6,7 @@ using UnityEngine;
 //스킬 쓰기.
 public class CombineSkillData : ScriptableObject
 {
-    public virtual void OnCombine()
+    public virtual void OnCombine(Dice dice)
     {
-
     }
 }
