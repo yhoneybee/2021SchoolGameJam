@@ -30,73 +30,116 @@ public struct Stat
     [SerializeField] private float hp;
 }
 
+[RequireComponent(typeof(Animator))]
 public class Dice : MonoBehaviour
 {
-    //public List<DiceEye> diceEyes = new List<DiceEye>();
-    public DiceData diceData;
+    public DiceData DiceData
+    {
+        get { return diceData; }
+        set
+        {
+            if (value)
+            {
+                if (!diceData) DiceEyesCount = 1;
+                stat = value.stat;
+                animator = GetComponent<Animator>();
+                animator.runtimeAnimatorController = value.animatorController;
+                CAttack = StartCoroutine(EAttack());
+            }
+            else
+            {
+                DiceEyesCount = 0;
+                animator = null;
+                StopCoroutine(CAttack);
+            }
+            diceData = value;
+        }
+    }
     public int DiceEyesCount
     {
         get { return diceEyesCount; }
         set
         {
             diceEyesCount = value;
+            txtDiceEyesCount.gameObject.SetActive(diceEyesCount != 0);
             txtDiceEyesCount.text = $"{diceEyesCount}";
         }
     }
-    public Vector2Int idx;
+    public Vector2Int PosIndex
+    {
+        get { return posIndex; }
+        set
+        {
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+            if (-1 < value.x && value.x < 5 &&
+                -1 < value.y && value.y < 5)
+            {
+                // ï¿½ï¿½È¿ï¿½ï¿½ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+                if (DiceData)
+                {
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ = value,
+                    var target = DiceManager.Instance.diceGrid[value.x, value.y];
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+                    // ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+                    if (target.DiceData)
+                    {
+                        // ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+                        if (target.DiceEyesCount == DiceEyesCount)
+                            DiceManager.Instance.Combine(this, target);
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    }
+                    // ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
+                    else
+                    {
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ valueï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
+                        DiceManager.Instance.diceGrid[value.x, value.y].DiceData = DiceData;
+                        DiceManager.Instance.diceGrid[value.x, value.y].DiceEyesCount = DiceEyesCount;
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                        DiceData = null;
+                        return;
+                    }
+                }
+                else
+                    posIndex = value;
+            }
+        }
+    }
     public Text txtDiceEyesCount;
     public Action onAttack = () => { };
     
-    //uint´Â +¸¸ Ãë±ÞÇÏ´Â Àý´ñ°ª
+    //uintï¿½ï¿½ +ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
     private int backhoAttackCount;
     private int diceEyesCount;
+    public bool isMerge;
+    public Stat stat;
+    public Stat buffStat;
+
+    [SerializeField] private int diceEyesCount;
+    private Animator animator;
+    [SerializeField] private DiceData diceData;
+    [SerializeField] private Vector2Int posIndex;
+    private Coroutine CAttack;
 
     private void Start()
     {
-        //InvokeRepeating(nameof(Attack), 0, 1 / diceData.stat.AS);
+        DiceEyesCount = 0;
     }
 
-    // ÇÕÄ¡±â
-    public void Combine(Dice combineTo)
+    private void Update()
     {
-        if (combineTo && CheckCombine(combineTo))
-        {
-            diceData.combineSkillData.OnCombine(this);
-            combineTo.DiceEyesCount++;
-            DiceManager.Instance.posIndex.Add(idx.x + idx.y * 5);
-            Destroy(gameObject);
-        }
+
     }
-    public bool CheckCombine(Dice combineTo) => combineTo.DiceEyesCount == DiceEyesCount;
 
     public void Attack()
     {
-
-        var temp = diceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
-        //ÀûÀ» Á¤°¡Á®¿ÀÁö ¸øÇÏ¿´À»¶§
-        if (temp == null || !temp.gameObject.activeSelf)
+        var temp = DiceData.isTargetRand ? ObjPool.GetRandEnemy() : ObjPool.GetFrontEnemy();
+        if (temp && temp.gameObject.activeSelf)
         {
-            //ÀÌ ÇÔ¼ö¸¦ ³¡³½´Ù.
-            return;
-        }
-
-        
-        backhoAttackCount++;
-        if(backhoAttackCount == 5)
-        {
-            backhoAttackCount = 0;
-            
-            if(diceData.combineSkillData is Backho)
-            {
-                ((Backho)diceData.combineSkillData).ChangeStatWhenAttack5();
-            }
-            
-        }
-        float cp = UnityEngine.Random.Range(0.0f, 100.0f);
-        float damage = diceData.stat.AD;
-        int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
-        int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
-        int max = (int)(temp.stat.MaxHP / 100) * 100;
+            float cp = UnityEngine.Random.Range(0.0f, 100.0f);
+            float damage = DiceData.stat.AD;
+            int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
+            int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
+            int max = (int)(temp.stat.MaxHP / 100) * 100;
 
         losthp = losthp == 0 ? 1 : losthp;
         remain = remain == 0 ? 1 : remain;
@@ -117,5 +160,11 @@ public class Dice : MonoBehaviour
 
 
 
+    }
+
+    IEnumerator EAttack()
+    {
+        yield return new WaitForSeconds(1 / (stat.AS + buffStat.AS));
+        Attack();
     }
 }

@@ -9,12 +9,13 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager Instance { get; private set; }
 
-    //public List<DiceView> diceGrid = new List<DiceView>();
-    public DiceView[,] diceGrid = new DiceView[5, 5];
+    public Dice[,] diceGrid = new Dice[5, 5];
     public List<DiceData> deck = new List<DiceData>();
-    public List<int> posIndex = new List<int>();
     public RectTransform rtrnGridParent;
-
+    public List<int> PosIndex = new List<int>()
+    {
+        0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+    };
     private void Awake()
     {
         Instance = this;
@@ -22,12 +23,12 @@ public class DiceManager : MonoBehaviour
 
     private void Start()
     {
-        var diceView = rtrnGridParent.GetComponentsInChildren<DiceView>();
-
-        for (int i = 0; i < 25; i++)
+        for (int y = 0; y < 5; y++)
         {
-            posIndex.Add(i);
-            diceGrid[i % 5, i / 5] = diceView[i];
+            for (int x = 0; x < 5; x++)
+            {
+                diceGrid[x, y] = rtrnGridParent.GetChild(x + y * 5).GetComponent<Dice>();
+            }
         }
     }
 
@@ -45,54 +46,72 @@ public class DiceManager : MonoBehaviour
 
     public void DiceMove(Vector2Int dir)
     {
-        // x,y x,y x,y x,y x,y
-        // 0,0 1,0 2,0 3,0 4,0
-        // 0,1 1,1 2,1 3,1 4,1
-        // 0,2 1,2 2,2 3,2 4,2
-        // 0,3 1,3 2,3 3,3 4,3
-        // 0,4 1,4 2,4 3,4 4,4
-        if (dir == Vector2Int.left)
+        for (int i = 0; i < 5; i++)
         {
-            for (int y = 0; y < 5; y++)
+            if (dir == Vector2Int.left || dir == Vector2Int.up)
             {
-                for (int x = 1; x < 5; x++)
+                for (int x = 0; x < 5; x++)
                 {
-                    if (diceGrid[x, y].Dice)
+                    for (int y = 0; y < 5; y++)
                     {
-                        if (diceGrid[x - 1, y].Dice)
+                        if (diceGrid[x, y].DiceData)
                         {
-                            diceGrid[x, y].Dice.Combine(diceGrid[x - 1, y].Dice);
-                        }
-                        else
-                        {
-                            diceGrid[x - 1, y].Dice = diceGrid[x, y].Dice;
-
-                            diceGrid[x, y].Dice.GetComponent<RectTransform>().position = diceGrid[x - 1, y].GetComponent<RectTransform>().position;
-                            diceGrid[x, y].Dice = null;
+                            diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
                         }
                     }
                 }
             }
+            else if (dir == Vector2Int.right || dir == Vector2Int.down)
+            {
+                for (int x = 5 - 1; x >= 0; x--)
+                {
+                    for (int y = 5 - 1; y >= 0; y--)
+                    {
+                        if (diceGrid[x, y].DiceData)
+                        {
+                            diceGrid[x, y].PosIndex = new Vector2Int(diceGrid[x, y].PosIndex.x + dir.x, diceGrid[x, y].PosIndex.y - dir.y);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        foreach (var item in diceGrid)
+        {
+            if (!item.DiceData)
+            {
+                PosIndex.Remove(item.PosIndex.x + item.PosIndex.y * 5);
+                PosIndex.Add(item.PosIndex.x + item.PosIndex.y * 5);
+                print($"pos({item.PosIndex.x + item.PosIndex.y * 5}) : {item.PosIndex.x}, {item.PosIndex.y}");
+            }
+        }
+    }
+
+    public void Combine(Dice from, Dice to)
+    {
+        if (!to.isMerge)
+        {
+            to.DiceEyesCount++;
+            to.DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
+            to.isMerge = true;
+            from.DiceData = null;
         }
     }
 
     public void SpawnDice()
     {
-        if (posIndex.Count > 0)
+        if (PosIndex.Count > 0)
         {
-            int rand = UnityEngine.Random.Range(0, posIndex.Count);
-            var idx = posIndex[rand];
-            posIndex.RemoveAt(rand);
+            int rand = UnityEngine.Random.Range(0, PosIndex.Count);
+            var idx = PosIndex[rand];
+            PosIndex.RemoveAt(rand);
 
-            var dice = Instantiate(Resources.Load<Dice>("Dice"), GameObject.Find("Dices").GetComponent<RectTransform>(), false);
-            dice.diceData = deck[UnityEngine.Random.Range(0, deck.Count)];
+            var pos = new Vector2Int(idx % 5, idx / 5);
+            diceGrid[idx % 5, idx / 5].PosIndex = pos;
+            diceGrid[idx % 5, idx / 5].DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
 
-            dice.idx = new Vector2Int(idx % 5, idx / 5);
-
-            print($"idx({idx}) = {idx % 5} + {idx / 5}");
-
-            diceGrid[idx % 5, idx / 5].Dice = dice;
-            dice.GetComponent<RectTransform>().position = diceGrid[idx % 5, idx / 5].GetComponent<RectTransform>().position;
+            print($"pos : {diceGrid[idx % 5, idx / 5].PosIndex} / idx({idx}) = {idx % 5} + {idx / 5}");
         }
     }
 }
