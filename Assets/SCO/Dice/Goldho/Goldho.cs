@@ -9,7 +9,7 @@ public class Goldho : CombineSkillData
         base.OnCombine(dice);
         foreach (var item in DiceManager.Instance.diceGrid)
         {
-            item.Dice.diceData.stat.AD += 5;
+            item.DiceData.stat.AD += 5;
         }
     }
 }

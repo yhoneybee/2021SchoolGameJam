@@ -8,6 +8,6 @@ public class Eunho : CombineSkillData
     {
         base.OnCombine(dice);
         foreach(var Stat in DiceManager.Instance.diceGrid)
-            Stat.Dice.diceData.stat.CD += 1;
+            Stat.DiceData.stat.CD += 1;
     }
 }

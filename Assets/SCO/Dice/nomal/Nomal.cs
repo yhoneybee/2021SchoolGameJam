@@ -9,7 +9,7 @@ public class Nomal : CombineSkillData
         base.OnCombine(dice);
         foreach (var item in DiceManager.Instance.diceGrid)
         {
-            item.Dice.diceData.stat.AS += 0.1f;
+            item.DiceData.stat.AS += 0.1f;
         }
     }
 }
