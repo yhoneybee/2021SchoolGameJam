@@ -10,25 +10,26 @@ public class Backho : CombineSkillData
     private int backhoAttackCount;
 
     //오버라이드는 물려받았는데 재정의 한것이다.
-    public override void OnCombine(Dice dice)
+    public override void OnCombine()
     {
         //base는 부모 개체를 가르킨다.
-        base.OnCombine(dice);
+        base.OnCombine();
         foreach (var item in DiceManager.Instance.diceGrid) 
         {
             item.DiceData.stat.CP += 5;
         }
     }
-    public void OnAttack()
+    public override void OnAttack()
     {
+        base.OnAttack();
         backhoAttackCount++;
         if (backhoAttackCount == 5)
         {
             backhoAttackCount = 0;
 
-            if (diceData.combineSkillData is Backho)
+            if (dice.DiceData.combineSkillData is Backho)
             {
-                ((Backho)diceData.combineSkillData).ChangeStatWhenAttack5();
+                ((Backho)dice.DiceData.combineSkillData).ChangeStatWhenAttack5();
             }
 
         }
@@ -40,8 +41,8 @@ public class Backho : CombineSkillData
         {
             foreach (var item in DiceManager.Instance.diceGrid)
             {
-                item.Dice.diceData.stat.AS -= deltaValueAS;
-                item.Dice.diceData.stat.AD += deltaValueAD;
+                item.DiceData.stat.AS -= deltaValueAS;
+                item.DiceData.stat.AD += deltaValueAD;
             }
             
         }
@@ -49,8 +50,8 @@ public class Backho : CombineSkillData
         {
             foreach (var item in DiceManager.Instance.diceGrid)
             {
-                item.Dice.diceData.stat.AS += deltaValueAS;
-                item.Dice.diceData.stat.AD -= deltaValueAD;
+                item.DiceData.stat.AS += deltaValueAS;
+                item.DiceData.stat.AD -= deltaValueAD;
             }
         }
 

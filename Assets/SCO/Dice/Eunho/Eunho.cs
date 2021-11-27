@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Eunho : CombineSkillData
 {
-    public override void OnCombine(Dice dice)
+    public override void OnCombine()
     {
-        base.OnCombine(dice);
+        base.OnCombine();
         foreach(var Stat in DiceManager.Instance.diceGrid)
             Stat.DiceData.stat.CD += 1;
     }

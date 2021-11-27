@@ -19,6 +19,7 @@ MonoBehaviour:
     CP: 0
     CD: 1
     MS: 0
+    isDice: 1
     hp: 0
   proportionInfo:
     lostHp: 1

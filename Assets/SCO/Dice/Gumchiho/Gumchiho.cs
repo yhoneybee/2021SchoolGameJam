@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Gumchiho", menuName = "Datas/Gumchiho", order = 0)]
 public class Gumchiho : CombineSkillData
 {
-    public override void OnCombine(Dice dice)
+    public override void OnCombine()
     {
-        base.OnCombine(dice);
+        base.OnCombine();
         //ObjPool.ActiveEnemies[0].Pos -= 1;
         foreach (var enemy in ObjPool.ActiveEnemies)
         {
