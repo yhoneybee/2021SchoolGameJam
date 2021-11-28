@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
             if (value >= GameManager.Instance.poss.Count)
             {
                 OnDie();
-                Player.life--;
+                Player.Life--;
             }
             else
                 pos = value;

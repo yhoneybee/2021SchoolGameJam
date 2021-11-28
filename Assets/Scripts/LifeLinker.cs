@@ -10,7 +10,7 @@ public class LifeLinker : MonoBehaviour
 
     private void Update()
     {
-        switch (Player.life)
+        switch (Player.Life)
         {
             case 2:
                 imgLifes[2].DOColor(Color.black, 1);

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour
     public List<EnemyData> enemyDatas = new List<EnemyData>();
     public TextManager scoreText;
     public Scroll scroll;
+    public Image Fade;
 
     public int RoundCount
     {
@@ -61,9 +64,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         RoundCount = 0;
+        Fade.DOFade(0, 1);
         Player.spawnCount = 1;
         Player.Money = 100;
-        Player.life = 3;
+        Player.Life = 3;
         StartCoroutine(ESpawn());
     }
 
