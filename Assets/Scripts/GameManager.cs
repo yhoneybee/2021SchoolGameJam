@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         set
         {
             enemyCount = value;
-            if (value <= 0)
+            if (value <= 0 && KillCount == GetRoundEnemy())
             {
                 print("라운드 종료");
                 RoundCount++;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         set
         {
             killCount = value;
-            Instance.scoreText.ChangeScore();
+            scoreText.ChangeScore();
         }
     }
     public Vector3 down;
@@ -99,8 +99,11 @@ public class GameManager : MonoBehaviour
         var wait = new WaitForSeconds(1.07f);
         while (true)
         {
-            ObjPool.GetEnemy(poss[0].position);
-            EnemyCount--;
+            if (EnemyCount > 0)
+            {
+                ObjPool.GetEnemy(poss[0].position);
+                EnemyCount--;
+            }
             yield return wait;
         }
     }

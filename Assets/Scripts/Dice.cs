@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 [Serializable]
 public struct Stat
@@ -72,11 +73,13 @@ public class Dice : MonoBehaviour
                 stat.Assign(value.stat);
                 stat += buffStat;
                 animator = GetComponent<Animator>();
+                GetComponent<Image>().DOFade(1, 1);
                 animator.runtimeAnimatorController = value.animatorController;
                 CAttack = StartCoroutine(EAttack());
             }
             else
             {
+                GetComponent<Image>().DOFade(0, 1);
                 StopCoroutine(CAttack);
                 DiceEyesCount = 0;
                 animator = null;
@@ -113,7 +116,7 @@ public class Dice : MonoBehaviour
                     if (target.DiceData)
                     {
                         // 같다면 합쳐버리기
-                        if (target.DiceEyesCount == DiceEyesCount)
+                        if (target.DiceEyesCount == DiceEyesCount && target.DiceEyesCount < 9 && DiceEyesCount < 9)
                             DiceManager.Instance.Combine(this, target);
                         // 움직이는 위치에 합쳐졌기에 위치 정보 갱신 안함
                     }
@@ -184,6 +187,7 @@ public class Dice : MonoBehaviour
             damage *= stat.CD + buffStat.CD;
 
         temp.stat.HP -= damage;
+        animator.SetTrigger("isAttack");
         if (DiceData.combineSkillData) DiceData.combineSkillData.OnAttack();
     }
 

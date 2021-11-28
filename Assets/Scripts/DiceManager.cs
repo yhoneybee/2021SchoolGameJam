@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Linq;
+using DG.Tweening;
 
 public class DiceManager : MonoBehaviour
 {
@@ -142,11 +142,14 @@ public class DiceManager : MonoBehaviour
 
     public void Combine(Dice from, Dice to)
     {
-        if (!to.isMerge)
+        if (!to.isMerge && !from.isMerge)
         {
+            to.DiceData.Count -= to.DiceEyesCount;
             to.DiceEyesCount++;
-            to.DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
+            to.DiceData = deck[Random.Range(0, deck.Count)];
             to.isMerge = true;
+            to.DiceData.Count += to.DiceEyesCount;
+            from.DiceData.Count -= from.DiceEyesCount;
             from.DiceData = null;
         }
     }
@@ -155,15 +158,16 @@ public class DiceManager : MonoBehaviour
     {
         if (PosIndex.Count > 0)
         {
-            int rand = UnityEngine.Random.Range(0, PosIndex.Count);
+            int rand = Random.Range(0, PosIndex.Count);
             var idx = PosIndex[rand];
             PosIndex.RemoveAt(rand);
 
             var pos = new Vector2Int(idx % 5, idx / 5);
             diceGrid[idx % 5, idx / 5].PosIndex = pos;
-            var data = deck[UnityEngine.Random.Range(0, deck.Count)];
+            var data = deck[Random.Range(0, deck.Count)];
             data.Count++;
             diceGrid[idx % 5, idx / 5].DiceData = data;
+            diceGrid[idx % 5, idx / 5].GetComponent<Image>().DOFade(1, 1);
         }
     }
 }

@@ -19,11 +19,13 @@ MonoBehaviour:
     CP: 0
     CD: 0
     MS: 0
+    Level: 0
     hp: 0
   proportionInfo:
     lostHp: 0
     remainHp: 0
     maxHp: 0
   combineSkillData: {fileID: 11400000, guid: 304f186476a567d4dbe96cfde7cbc970, type: 2}
-  animatorController: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: dd02f3178fa3d0d469ca8bac1c2784e3, type: 2}
   isTargetRand: 0
+  Count: 0
