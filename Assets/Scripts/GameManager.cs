@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public List<RectTransform> poss = new List<RectTransform>();
     public List<EnemyData> enemyDatas = new List<EnemyData>();
     public TextManager scoreText;
+    public Scroll scroll;
+
     public int RoundCount
     {
         get { return roundCount; }
@@ -28,12 +30,6 @@ public class GameManager : MonoBehaviour
         set
         {
             enemyCount = value;
-            if (value <= 0 && KillCount == GetRoundEnemy())
-            {
-                print("라운드 종료");
-                RoundCount++;
-                KillCount = 0;
-            }
         }
     }
     private int killCount;
@@ -45,6 +41,10 @@ public class GameManager : MonoBehaviour
         set
         {
             killCount = value;
+            if (EnemyCount <= 0 && killCount == GetRoundEnemy())
+            {
+                scroll.gameObject.SetActive(true);
+            }
             scoreText.ChangeScore();
         }
     }
@@ -61,12 +61,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         RoundCount = 0;
+        Player.spawnCount = 1;
+        Player.Money = 100;
         Player.life = 3;
         StartCoroutine(ESpawn());
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Player.Money += 10000;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             down = Input.mousePosition;

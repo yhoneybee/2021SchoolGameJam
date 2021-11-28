@@ -27,7 +27,7 @@ public static class ObjPool
         }
         else
         {
-            enemy = Object.Instantiate(Resources.Load<Enemy>("Enemy"), GameObject.Find("Canvas").GetComponent<RectTransform>(), false);
+            enemy = Object.Instantiate(Resources.Load<Enemy>("Enemy"), GameObject.Find("EnemyParent").GetComponent<RectTransform>(), false);
         }
         activeEnemies.Add(enemy);
 

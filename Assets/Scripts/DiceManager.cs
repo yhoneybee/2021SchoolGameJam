@@ -156,18 +156,21 @@ public class DiceManager : MonoBehaviour
 
     public void SpawnDice()
     {
-        if (PosIndex.Count > 0)
-        {
-            int rand = Random.Range(0, PosIndex.Count);
-            var idx = PosIndex[rand];
-            PosIndex.RemoveAt(rand);
+        int cost = Player.spawnCount * 10;
+        if (PosIndex.Count <= 0 || Player.Money < cost) return;
 
-            var pos = new Vector2Int(idx % 5, idx / 5);
-            diceGrid[idx % 5, idx / 5].PosIndex = pos;
-            var data = deck[Random.Range(0, deck.Count)];
-            data.Count++;
-            diceGrid[idx % 5, idx / 5].DiceData = data;
-            diceGrid[idx % 5, idx / 5].GetComponent<Image>().DOFade(1, 1);
-        }
+        int rand = Random.Range(0, PosIndex.Count);
+        var idx = PosIndex[rand];
+        PosIndex.RemoveAt(rand);
+
+        var pos = new Vector2Int(idx % 5, idx / 5);
+        diceGrid[idx % 5, idx / 5].PosIndex = pos;
+        var data = deck[Random.Range(0, deck.Count)];
+        data.Count++;
+        diceGrid[idx % 5, idx / 5].DiceData = data;
+        diceGrid[idx % 5, idx / 5].GetComponent<Image>().DOFade(1, 1);
+        Player.Money -= cost;
+        Player.spawnCount++;
+        TextManager.Instance.txtSpawn.text = $"{Player.spawnCount * 10}";
     }
 }

@@ -14,8 +14,9 @@ public static class Player
         }
     }
     public static int highWave;
-    public static string[] strArrCost = { "100", "200", "400", "700", "MAX" };
+    public static int[] ArrCost = { 100, 200, 400, 700 };
     public static int life;
+    public static int spawnCount;
 
     private static int money;
 }

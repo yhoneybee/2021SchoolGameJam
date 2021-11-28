@@ -290,6 +290,7 @@ MonoBehaviour:
   txtLevel: {fileID: 4059001163770646471}
   txtCost: {fileID: 4059001165293255171}
   diceData: {fileID: 11400000, guid: b6a70317bc3062140b1873398f46fb25, type: 2}
+  btnUpgrade: {fileID: 4059001164415922789}
 --- !u!1 &4059001164415922791
 GameObject:
   m_ObjectHideFlags: 0

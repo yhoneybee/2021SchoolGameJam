@@ -93,8 +93,12 @@ public class Dice : MonoBehaviour
         set
         {
             diceEyesCount = value;
-            txtDiceEyesCount.gameObject.SetActive(diceEyesCount != 0);
-            txtDiceEyesCount.text = $"{diceEyesCount}";
+            for (int i = 0; i < 8; i++)
+            {
+                imgHanjaHos[i].gameObject.SetActive(diceEyesCount >= i + 1);
+            }
+            //txtDiceEyesCount.gameObject.SetActive(diceEyesCount != 0);
+            //txtDiceEyesCount.text = $"{diceEyesCount}";
         }
     }
     public Vector2Int PosIndex
@@ -135,13 +139,13 @@ public class Dice : MonoBehaviour
             }
         }
     }
-    public Text txtDiceEyesCount;
     public Action onAttack = () => { };
 
 
     public bool isMerge;
     public Stat stat;
     public Stat buffStat;
+    public List<Image> imgHanjaHos;
 
     [SerializeField] private int diceEyesCount;
     private Animator animator;

@@ -9,6 +9,7 @@ public class TextManager : MonoBehaviour
     public Text txtRound;
     public Text txtLeftEnemy;
     public Text txtMoney;
+    public Text txtSpawn;
 
     [Header("사용되지 않음")] public Text scoreText;
 
