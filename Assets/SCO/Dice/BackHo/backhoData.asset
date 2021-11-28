@@ -15,7 +15,7 @@ MonoBehaviour:
   stat:
     MaxHP: 0
     AD: 20
-    AS: 100
+    AS: 5
     CP: 0
     CD: 0
     MS: 0

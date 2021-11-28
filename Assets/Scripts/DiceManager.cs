@@ -25,6 +25,11 @@ public class DiceManager : MonoBehaviour
 
     private void Start()
     {
+        foreach (var item in deck)
+        {
+            item.stat.Level = 0;
+            item.Count = 0;
+        }
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
@@ -156,7 +161,9 @@ public class DiceManager : MonoBehaviour
 
             var pos = new Vector2Int(idx % 5, idx / 5);
             diceGrid[idx % 5, idx / 5].PosIndex = pos;
-            diceGrid[idx % 5, idx / 5].DiceData = deck[UnityEngine.Random.Range(0, deck.Count)];
+            var data = deck[UnityEngine.Random.Range(0, deck.Count)];
+            data.Count++;
+            diceGrid[idx % 5, idx / 5].DiceData = data;
         }
     }
 }

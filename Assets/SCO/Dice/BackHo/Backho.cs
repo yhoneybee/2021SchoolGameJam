@@ -41,8 +41,8 @@ public class Backho : CombineSkillData
         {
             foreach (var item in DiceManager.Instance.diceGrid)
             {
-                item.DiceData.stat.AS -= deltaValueAS;
-                item.DiceData.stat.AD += deltaValueAD;
+                item.buffStat.AS -= deltaValueAS;
+                item.buffStat.AD += deltaValueAD;
             }
             
         }
@@ -50,8 +50,8 @@ public class Backho : CombineSkillData
         {
             foreach (var item in DiceManager.Instance.diceGrid)
             {
-                item.DiceData.stat.AS += deltaValueAS;
-                item.DiceData.stat.AD -= deltaValueAD;
+                item.buffStat.AS += deltaValueAS;
+                item.buffStat.AD -= deltaValueAD;
             }
         }
 

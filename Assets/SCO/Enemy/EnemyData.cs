@@ -7,4 +7,5 @@ public class EnemyData : ScriptableObject
 {
     public Stat stat;
     public RuntimeAnimatorController animatorController;
+    [Header("현재 Round(wave)에 곱해져서 얻어짐")]public int Money;
 }

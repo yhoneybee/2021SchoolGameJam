@@ -26,6 +26,7 @@ public struct Stat
     public float CP;
     public float CD;
     public float MS;
+    public int Level;
 
     [SerializeField] private float hp;
 
@@ -67,7 +68,7 @@ public class Dice : MonoBehaviour
             if (value)
             {
                 if (!diceData) DiceEyesCount = 1;
-                value.combineSkillData.OnDice(this);
+                if (value.combineSkillData) value.combineSkillData.OnDice(this);
                 stat.Assign(value.stat);
                 stat += buffStat;
                 animator = GetComponent<Animator>();
@@ -183,7 +184,7 @@ public class Dice : MonoBehaviour
             damage *= stat.CD + buffStat.CD;
 
         temp.stat.HP -= damage;
-        DiceData.combineSkillData.OnAttack();
+        if (DiceData.combineSkillData) DiceData.combineSkillData.OnAttack();
     }
 
     IEnumerator EAttack()

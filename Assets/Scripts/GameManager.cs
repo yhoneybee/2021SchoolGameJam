@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public List<RectTransform> poss = new List<RectTransform>();
     public List<EnemyData> enemyDatas = new List<EnemyData>();
-    public ScoreText scoreText;
+    public TextManager scoreText;
     public int RoundCount
     {
         get { return roundCount; }
@@ -16,16 +16,7 @@ public class GameManager : MonoBehaviour
         {
             roundCount = value;
 
-            enemyCount = 0;
-
-            if (roundCount % 3 == 0)
-                EnemyCount += 4;
-            if (roundCount % 3 == 1)
-                EnemyCount += 8;
-            if (roundCount % 3 == 2)
-                EnemyCount += 13;
-
-            EnemyCount += 13 * (roundCount / 3);
+            EnemyCount = GetRoundEnemy();
         }
     }
     public readonly int SMALL = 4;
@@ -38,7 +29,11 @@ public class GameManager : MonoBehaviour
         {
             enemyCount = value;
             if (value <= 0)
+            {
+                print("라운드 종료");
                 RoundCount++;
+                KillCount = 0;
+            }
         }
     }
     private int killCount;
@@ -66,6 +61,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         RoundCount = 0;
+        Player.life = 3;
         StartCoroutine(ESpawn());
     }
 
@@ -80,6 +76,22 @@ public class GameManager : MonoBehaviour
             var dir = Input.mousePosition - down;
             down = Vector2.zero;
         }
+    }
+
+    public int GetRoundEnemy()
+    {
+        int temp = 0;
+
+        if (roundCount % 3 == 0)
+            temp += 4;
+        if (roundCount % 3 == 1)
+            temp += 8;
+        if (roundCount % 3 == 2)
+            temp += 13;
+
+        temp += 13 * (roundCount / 3);
+
+        return temp;
     }
 
     IEnumerator ESpawn()

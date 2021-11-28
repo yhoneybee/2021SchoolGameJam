@@ -19,5 +19,7 @@ MonoBehaviour:
     CP: 0
     CD: 0
     MS: 100
+    Level: 0
     hp: 20
   animatorController: {fileID: 9100000, guid: 53f0334af72a08944969117052114279, type: 2}
+  Money: 10

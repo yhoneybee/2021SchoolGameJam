@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
             if (value >= GameManager.Instance.poss.Count)
             {
                 OnDie();
+                Player.life--;
             }
             else
                 pos = value;
@@ -62,6 +63,7 @@ public class Enemy : MonoBehaviour
     {
         Pos = 0;
         ObjPool.ReturnEnemy(this);
+        Player.Money += enemyData.Money * GameManager.Instance.RoundCount;
         GameManager.Instance.KillCount++;
     }
 }

@@ -21,6 +21,7 @@ public class DiceData : ScriptableObject
     public CombineSkillData combineSkillData; // 합칠때 스킬 
     public RuntimeAnimatorController animatorController; //애니메이터 컨트롤러
     public bool isTargetRand; //무작위 공격 할껀지 안할껀지
+    public int Count;
 }
 
 
