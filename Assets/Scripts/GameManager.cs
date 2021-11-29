@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
         set
         {
             roundCount = value;
-
+            if (roundCount % 10 == 0)
+                ObjPool.AddHp *= 2;
             EnemyCount = GetRoundEnemy();
         }
     }

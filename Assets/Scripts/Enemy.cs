@@ -15,9 +15,6 @@ public class Enemy : MonoBehaviour
         {
             enemyData = value;
             stat = enemyData.stat;
-            stat.MaxHP *= (GameManager.Instance.RoundCount + 1);
-            stat.HP = stat.MaxHP;
-            txtHp.DOText($"{((int)stat.HP)}", 1);
             stat.onDie = OnDie;
             animator.runtimeAnimatorController = enemyData.animatorController;
         }
@@ -50,6 +47,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        txtHp.text = $"{((int)stat.HP)}";
         var targetPos = GameManager.Instance.poss[Pos].anchoredPosition;
         var rtrn = GetComponent<RectTransform>();
         if (Vector3.Distance(rtrn.anchoredPosition, targetPos) < 0.1f)
