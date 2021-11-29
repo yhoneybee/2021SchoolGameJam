@@ -26,7 +26,7 @@ public class Scroll : MonoBehaviour
             .Insert(0, rtrn1.DOAnchorPosX(0, 0.7f))
             .Insert(0.7f, rtrn0.DOAnchorPosX(933, 0))
             .Insert(0.7f, rtrn1.DOAnchorPosX(0, 0))
-            .SetLoops(3);
+            .SetLoops(1);
         nextRound.onComplete = () =>
         {
             img[0].DOFade(0, 1);
