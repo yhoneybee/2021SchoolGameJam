@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
@@ -15,12 +17,14 @@ public class Enemy : MonoBehaviour
             stat = enemyData.stat;
             stat.MaxHP *= (GameManager.Instance.RoundCount + 1);
             stat.HP = stat.MaxHP;
+            txtHp.DOText($"{((int)stat.HP)}", 1);
             stat.onDie = OnDie;
             animator.runtimeAnimatorController = enemyData.animatorController;
         }
     }
     public Stat stat;
     public Animator animator;
+    public Text txtHp;
     public int Pos//Property
     {
         get => pos;
