@@ -17,6 +17,8 @@ public struct Stat
         {
             if (0 < value && value <= MaxHP)
                 hp = value;
+            else if (MaxHP < value)
+                hp = MaxHP;
             else if (value <= 0)
                 onDie();
         }
@@ -171,7 +173,7 @@ public class Dice : MonoBehaviour
         if (!temp || !temp.gameObject.activeSelf) return;
 
         float cp = UnityEngine.Random.Range(0.0f, 100.0f);
-        float damage = stat.AD + buffStat.AD;
+        float damage = stat.AD + buffStat.AD * ((diceData.stat.Level + 1) * 2);
         int losthp = (int)((temp.stat.MaxHP - temp.stat.HP) / temp.stat.MaxHP * 100);
         int remain = (int)(temp.stat.HP / temp.stat.MaxHP * 100);
         int max = (int)(temp.stat.MaxHP / 100) * 100;
@@ -199,7 +201,7 @@ public class Dice : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1 / (stat.AS + buffStat.AS));
+            yield return new WaitForSeconds(1 / (stat.AS + buffStat.AS + ((diceData.stat.Level + 1) * 0.2f)));
             if (DiceData) Attack();
         }
     }
