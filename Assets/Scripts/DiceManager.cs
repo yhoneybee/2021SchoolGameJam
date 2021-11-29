@@ -56,14 +56,13 @@ public class DiceManager : MonoBehaviour
         if (Input.touchCount == 1)
         {
             var touch = Input.GetTouch(0);
-            delta = touch.deltaPosition;
-            print(delta);
+            delta += touch.deltaPosition;
         }
         if (Input.touchCount == 0 && delta != Vector2.zero)
         {
             float x = Mathf.Abs(delta.x);
             float y = Mathf.Abs(delta.y);
-            if (x > 2 && y > 2)
+            if (x > 5 && y > 5)
             {
                 if (x > y)
                 {
