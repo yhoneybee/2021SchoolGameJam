@@ -22,9 +22,9 @@ public class Scroll : MonoBehaviour
         nextRound = DOTween.Sequence()
             .SetAutoKill(false)
             .Insert(0, txtRound.DOText("NEXT ROUND", 0.7f))
-            .Insert(0, rtrn0.DOAnchorPosX(-933, 0.7f))
+            .Insert(0, rtrn0.DOAnchorPosX(-1653, 0.7f))
             .Insert(0, rtrn1.DOAnchorPosX(0, 0.7f))
-            .Insert(0.7f, rtrn0.DOAnchorPosX(933, 0))
+            .Insert(0.7f, rtrn0.DOAnchorPosX(1653, 0))
             .Insert(0.7f, rtrn1.DOAnchorPosX(0, 0))
             .SetLoops(1);
         nextRound.onComplete = () =>
