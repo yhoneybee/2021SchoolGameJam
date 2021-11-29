@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+            Time.timeScale -= 1;
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+            Time.timeScale += 1;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Player.Money += 10000;
