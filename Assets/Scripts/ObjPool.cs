@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
+using DG.Tweening;
 
 public static class ObjPool
 {
@@ -19,6 +21,7 @@ public static class ObjPool
     public static Enemy GetEnemy(Vector2 pos)
     {
         Enemy enemy = null;
+        enemies.RemoveAll(x => x == null);
 
         if (enemies.Count > 0)
         {
@@ -35,6 +38,7 @@ public static class ObjPool
         enemy.gameObject.transform.position = pos;
 
         enemy.EnemyData = GameManager.Instance.enemyDatas[Random.Range(0, GameManager.Instance.enemyDatas.Count)];
+        enemy.GetComponent<RectTransform>().DOSizeDelta(new Vector2(350, 350), 3);
 
         return enemy;
     }
@@ -45,5 +49,6 @@ public static class ObjPool
         activeEnemies.Remove(enemy);
         enemy.gameObject.SetActive(false);
         enemy.gameObject.transform.position = Vector3.zero;
+        enemy.GetComponent<RectTransform>().DOSizeDelta(new Vector2(0, 0), 0);
     }
 }
