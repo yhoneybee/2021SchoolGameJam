@@ -4880,6 +4880,8 @@ MonoBehaviour:
   - {fileID: 505264720}
   enemyDatas:
   - {fileID: 11400000, guid: 1f81ef111f0167145b36ca74784a7b75, type: 2}
+  - {fileID: 11400000, guid: 04e60ff4632b3f142a1001f3bbcb1111, type: 2}
+  bossData: []
   scoreText: {fileID: 1656418666}
   scroll: {fileID: 1797088753}
   Fade: {fileID: 698473008}
@@ -5738,7 +5740,7 @@ Animator:
   m_GameObject: {fileID: 1299404635}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 928cc57fb962e1640bcc23f1e39f8193, type: 2}
+  m_Controller: {fileID: 9100000, guid: 541b500f59975fc45b9baecb3f6e956b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
