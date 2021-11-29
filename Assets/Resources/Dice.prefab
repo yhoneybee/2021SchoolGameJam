@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.31911087, y: 0.42256927}
+  m_AnchoredPosition: {x: -0.31910706, y: 0.42256927}
   m_SizeDelta: {x: 182.5541, y: 185.0739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &225271284165401160
@@ -272,7 +272,7 @@ MonoBehaviour:
   - {fileID: 5774089792116601255}
   - {fileID: 629380978188729375}
   - {fileID: 5490005032434425984}
-  - {fileID: 5490005032434425984}
+  - {fileID: 7224311999285581041}
   - {fileID: 5067333191213131931}
   - {fileID: 3099469545491468153}
   diceEyesCount: 0
@@ -331,7 +331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.29999924, y: -0.29999924}
+  m_AnchoredPosition: {x: -0.30000305, y: -0.30000305}
   m_SizeDelta: {x: 182.5541, y: 192.4739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5333477685689059953
@@ -406,7 +406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.5064, y: 2.1375}
+  m_AnchoredPosition: {x: -2.506401, y: 2.137497}
   m_SizeDelta: {x: 178.1795, y: 199.0725}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5708508102900178476
@@ -481,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000011444092, y: 0.42253876}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0.42253876}
   m_SizeDelta: {x: 182.5541, y: 191.0289}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7001719338624011219
