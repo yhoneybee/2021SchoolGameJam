@@ -11,6 +11,33 @@ public static class ObjPool
     private static List<Enemy> activeEnemies = new List<Enemy>();
     public static List<Enemy> ActiveEnemies => activeEnemies;
 
+    public static float CurHp
+    {
+        get => curHp;
+        set => curHp = value;
+    }
+    public static float AddHp
+    {
+        get => addHp;
+        set => addHp = value;
+    }
+    private static float curHp = 126.375f;
+    private static float addHp = 126.375f;
+
+    private static int SpawnCount
+    {
+        get => spawnCount;
+        set
+        {
+            spawnCount = value;
+            if (spawnCount % 10 == 0)
+            {
+                curHp += addHp;
+            }
+        }
+    }
+    private static int spawnCount = 0;
+
     public static Enemy GetFrontEnemy() => activeEnemies.Count > 0 ? (activeEnemies[0].gameObject.activeSelf ? activeEnemies[0] : null) : null;
     public static Enemy GetRandEnemy()
     {
@@ -40,6 +67,9 @@ public static class ObjPool
         enemy.EnemyData = GameManager.Instance.enemyDatas[Random.Range(0, GameManager.Instance.enemyDatas.Count)];
         enemy.GetComponent<RectTransform>().DOSizeDelta(new Vector2(350, 350), 3);
 
+        enemy.stat.MaxHP = curHp;
+        enemy.stat.HP = int.MaxValue;
+
         return enemy;
     }
 
@@ -49,6 +79,6 @@ public static class ObjPool
         activeEnemies.Remove(enemy);
         enemy.gameObject.SetActive(false);
         enemy.gameObject.transform.position = Vector3.zero;
-        enemy.GetComponent<RectTransform>().DOSizeDelta(new Vector2(0, 0), 0);
+        enemy.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
     }
 }
