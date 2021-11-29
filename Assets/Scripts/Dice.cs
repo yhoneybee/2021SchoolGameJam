@@ -201,7 +201,9 @@ public class Dice : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1 / (stat.AS + buffStat.AS + ((diceData.stat.Level + 1) * 0.2f)));
+            float attackSpeed = 1 / (stat.AS + buffStat.AS);
+            if (DiceData) attackSpeed += ((diceData.stat.Level + 1) * 0.2f);
+            yield return new WaitForSeconds(attackSpeed);
             if (DiceData) Attack();
         }
     }
