@@ -116,6 +116,7 @@ MonoBehaviour:
     CP: 0
     CD: 0
     MS: 999
+    Level: 0
     hp: 0
   animator: {fileID: 6590864427228709638}
 --- !u!50 &-6155556693105176606
