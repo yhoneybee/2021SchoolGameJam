@@ -194,6 +194,7 @@ public class Dice : MonoBehaviour
 
         temp.stat.HP -= damage;
         animator.SetTrigger("isAttack");
+        SoundManager.Instance.Play("Attack", SoundType.EFFECT);
         if (DiceData.combineSkillData) DiceData.combineSkillData.OnAttack();
     }
 

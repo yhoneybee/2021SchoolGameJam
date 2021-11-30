@@ -8,6 +8,7 @@ using DG.Tweening;
 public static class ObjPool
 {
     private static List<Enemy> enemies = new List<Enemy>();
+    private static List<Enemy> bossEnemies = new List<Enemy>();
     private static List<Enemy> activeEnemies = new List<Enemy>();
     public static List<Enemy> ActiveEnemies => activeEnemies;
 
@@ -24,7 +25,7 @@ public static class ObjPool
     private static float curHp = 126.375f;
     private static float addHp = 126.375f;
 
-    private static int SpawnCount
+    public static int SpawnCount
     {
         get => spawnCount;
         set
@@ -43,6 +44,34 @@ public static class ObjPool
     {
         var temp = activeEnemies.Where(x => x.gameObject.activeSelf);
         return temp.ElementAt(Random.Range(0, temp.Count()));
+    }
+
+    public static Enemy GetBoss(Vector2 pos)
+    {
+        Enemy boss = null;
+        bossEnemies.RemoveAll(x => x == null);
+
+        if (bossEnemies.Count > 0)
+        {
+            boss = bossEnemies[0];
+            bossEnemies.RemoveAt(0);
+        }
+        else
+        {
+            boss = Object.Instantiate(Resources.Load<Enemy>("Enemy"), GameObject.Find("EnemyParent").GetComponent<RectTransform>(), false);
+        }
+        activeEnemies.Add(boss);
+
+        boss.gameObject.SetActive(true);
+        boss.gameObject.transform.position = pos;
+
+        //boss.EnemyData = GameManager.Instance.bossData[Random.Range(0, GameManager.Instance.bossData.Count)];
+        boss.GetComponent<RectTransform>().DOSizeDelta(new Vector2(350, 350), 3);
+
+        boss.stat.MaxHP = curHp;
+        boss.stat.HP = int.MaxValue;
+
+        return boss;
     }
 
     public static Enemy GetEnemy(Vector2 pos)

@@ -15,6 +15,7 @@ public class UpgradeBtnLinker : MonoBehaviour
     {
         btnUpgrade.onClick.AddListener(() =>
         {
+            SoundManager.Instance.Play("FixPop", SoundType.BUTTON);
             if (diceData.stat.Level < 4)
             {
                 if (Player.ArrCost[diceData.stat.Level] <= Player.Money)

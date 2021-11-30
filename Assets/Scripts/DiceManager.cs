@@ -150,6 +150,7 @@ public class DiceManager : MonoBehaviour
             to.DiceData.Count += to.DiceEyesCount;
             from.DiceData.Count -= from.DiceEyesCount;
             from.DiceData = null;
+            SoundManager.Instance.Play("FixPop", SoundType.EFFECT);
         }
     }
 
@@ -171,5 +172,6 @@ public class DiceManager : MonoBehaviour
         Player.Money -= cost;
         Player.spawnCount++;
         TextManager.Instance.txtSpawn.text = $"{Player.spawnCount * 10}";
+        SoundManager.Instance.Play("FixTigerRoar", SoundType.EFFECT);
     }
 }
