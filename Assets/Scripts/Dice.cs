@@ -24,14 +24,32 @@ public struct Stat
         }
     }
     public float MaxHP;
-    public float AD;
-    public float AS;
+    public float AD
+    {
+        get => ad;
+        set
+        {
+            if (value > 0)
+                ad = value;
+        }
+    }
+    public float AS
+    {
+        get => ats;
+        set
+        {
+            if (value > 0)
+                ats = value;
+        }
+    }
     public float CP;
     public float CD;
     public float MS;
     public int Level;
 
     [SerializeField] private float hp;
+    [SerializeField] private float ad;
+    [SerializeField] private float ats;
 
     public void Assign(Stat stat)
     {
