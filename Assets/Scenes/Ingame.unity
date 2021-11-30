@@ -4881,7 +4881,8 @@ MonoBehaviour:
   enemyDatas:
   - {fileID: 11400000, guid: 1f81ef111f0167145b36ca74784a7b75, type: 2}
   - {fileID: 11400000, guid: 04e60ff4632b3f142a1001f3bbcb1111, type: 2}
-  bossData: []
+  bossData:
+  - {fileID: 11400000, guid: e2efd0b311632b84da53a12ce28075f3, type: 2}
   scoreText: {fileID: 1656418666}
   scroll: {fileID: 1797088753}
   Fade: {fileID: 698473008}

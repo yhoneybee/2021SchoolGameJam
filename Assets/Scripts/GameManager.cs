@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
     public List<RectTransform> poss = new List<RectTransform>();
     public List<EnemyData> enemyDatas = new List<EnemyData>();
-    public List<BossData> bossData = new List<BossData>();
+    public List<EnemyData> bossData = new List<EnemyData>();
+    
     public TextManager scoreText;
     public Scroll scroll;
     public Image Fade;
