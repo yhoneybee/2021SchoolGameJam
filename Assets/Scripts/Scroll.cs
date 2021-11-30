@@ -33,6 +33,7 @@ public class Scroll : MonoBehaviour
             img[1].DOFade(0, 1);
             txtRound.text = "";
             GameManager.Instance.RoundCount++;
+            SoundManager.Instance.Play("FixLionRoar", SoundType.EFFECT);
             GameManager.Instance.KillCount = 0;
             gameObject.SetActive(false);
         };
