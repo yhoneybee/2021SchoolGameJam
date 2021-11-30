@@ -65,7 +65,7 @@ public static class ObjPool
         boss.gameObject.SetActive(true);
         boss.gameObject.transform.position = pos;
 
-        //boss.EnemyData = GameManager.Instance.bossData[Random.Range(0, GameManager.Instance.bossData.Count)];
+        boss.EnemyData = GameManager.Instance.bossData[Random.Range(0, GameManager.Instance.bossData.Count)];
         boss.GetComponent<RectTransform>().DOSizeDelta(new Vector2(350, 350), 3);
 
         boss.stat.MaxHP = curHp;
