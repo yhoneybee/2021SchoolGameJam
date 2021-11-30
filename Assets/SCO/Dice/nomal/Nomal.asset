@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
     MaxHP: 0
-    AD: 50
-    AS: 10
-    CP: 5
-    CD: 2022
+    CP: 0
+    CD: 0
     MS: 0
     Level: 0
     hp: 0
+    ad: 7
+    ats: 0.6
   proportionInfo:
     lostHp: 0
     remainHp: 0

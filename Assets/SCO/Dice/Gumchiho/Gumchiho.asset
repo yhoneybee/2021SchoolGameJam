@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
     MaxHP: 0
-    AD: 10
-    AS: 1
-    CP: 5
-    CD: 1.2
+    CP: 0
+    CD: 0
     MS: 0
     Level: 0
     hp: 0
+    ad: 7
+    ats: 0.7
   proportionInfo:
     lostHp: 1
     remainHp: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   combineSkillData: {fileID: 0}
   animatorController: {fileID: 9100000, guid: 834e717ee10dd3a4fa0078b1691ecc6a, type: 2}
   isTargetRand: 0
-  Count: 0
+  Count: 1

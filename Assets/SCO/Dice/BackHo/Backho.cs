@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BackhoSkill", menuName = "Datas/Backhoskill", order = 0)]
 public class Backho : CombineSkillData
 {
-    private float deltaValueAS = 1.5f;
-    private float deltaValueAD = 4;
+    private float deltaValueAS = 1;
+    private float deltaValueAD = 5;
     private bool isFastAS = true;
     private int backhoAttackCount;
 
