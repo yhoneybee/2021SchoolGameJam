@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale -= 1;
         if (Input.GetKeyDown(KeyCode.RightBracket))
             Time.timeScale += 1;
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Player.Money += 10000;
         }
