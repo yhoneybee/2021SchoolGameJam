@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
                 if (ObjPool.SpawnCount > 2000 && ObjPool.SpawnCount % 2021 == 0) ObjPool.GetBoss(poss[0].position);
                 else ObjPool.GetEnemy(poss[0].position);
                 EnemyCount--;
+                ObjPool.SpawnCount++;
             }
             yield return wait;
         }

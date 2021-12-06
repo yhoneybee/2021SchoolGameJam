@@ -25,7 +25,7 @@ MonoBehaviour:
     lostHp: 1
     remainHp: 0
     maxHp: 0
-  combineSkillData: {fileID: 0}
+  combineSkillData: {fileID: 11400000, guid: 050d4154283feed4899d35748fd662ad, type: 2}
   animatorController: {fileID: 9100000, guid: 834e717ee10dd3a4fa0078b1691ecc6a, type: 2}
   isTargetRand: 0
-  Count: 1
+  Count: 2

@@ -16,7 +16,7 @@ public class Backho : CombineSkillData
         base.OnCombine();
         foreach (var item in DiceManager.Instance.diceGrid) 
         {
-            item.DiceData.stat.CP += 5;
+            item.buffStat.CP += 5;
         }
     }
     public override void OnAttack()

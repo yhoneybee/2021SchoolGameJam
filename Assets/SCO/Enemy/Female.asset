@@ -22,4 +22,5 @@ MonoBehaviour:
     ad: 0
     ats: 0
   animatorController: {fileID: 9100000, guid: 81f81c48ffde54b4bab883e0751527eb, type: 2}
+  Multi: 1
   Money: 10

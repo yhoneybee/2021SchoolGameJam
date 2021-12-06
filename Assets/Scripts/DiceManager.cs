@@ -42,7 +42,6 @@ public class DiceManager : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.UpArrow))
             DiceMove(Vector2Int.up);
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -51,7 +50,6 @@ public class DiceManager : MonoBehaviour
             DiceMove(Vector2Int.right);
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             DiceMove(Vector2Int.left);
-#endif
 #if UNITY_ANDROID
         if (Input.touchCount == 1)
         {
@@ -148,6 +146,8 @@ public class DiceManager : MonoBehaviour
             to.DiceData = deck[Random.Range(0, deck.Count)];
             to.isMerge = true;
             to.DiceData.Count += to.DiceEyesCount;
+            if (to.DiceData.combineSkillData) to.DiceData.combineSkillData.OnCombine();
+            if (from.DiceData.combineSkillData) from.DiceData.combineSkillData.OnCombine();
             from.DiceData.Count -= from.DiceEyesCount;
             from.DiceData = null;
             SoundManager.Instance.Play("FixPop", SoundType.EFFECT);

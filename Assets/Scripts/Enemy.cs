@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour
     public void Return()
     {
         Pos = 0;
+        Player.Money += enemyData.Money * (GameManager.Instance.RoundCount + 1);
         ObjPool.ReturnEnemy(this);
-        Player.Money += enemyData.Money * GameManager.Instance.RoundCount;
         GameManager.Instance.KillCount++;
     }
 }

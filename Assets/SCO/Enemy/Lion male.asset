@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
     MaxHP: 20
-    AD: 0
-    AS: 0
     CP: 0
     CD: 0
     MS: 100
     Level: 0
     hp: 20
-  animatorController: {fileID: 9100000, guid: 81f81c48ffde54b4bab883e0751527eb, type: 2}
+    ad: 0
+    ats: 0
+  animatorController: {fileID: 9100000, guid: 928cc57fb962e1640bcc23f1e39f8193, type: 2}
+  Multi: 5
   Money: 10

@@ -33,6 +33,7 @@ public static class ObjPool
             spawnCount = value;
             if (spawnCount % 10 == 0)
             {
+                Debug.Log($"{curHp} {curHp + addHp}");
                 curHp += addHp;
             }
         }
@@ -97,6 +98,7 @@ public static class ObjPool
         enemy.GetComponent<RectTransform>().DOSizeDelta(new Vector2(350, 350), 3);
 
         enemy.stat.MaxHP = curHp;
+        enemy.stat.MaxHP *= enemy.EnemyData.Multi;
         enemy.stat.HP = int.MaxValue;
 
         return enemy;
